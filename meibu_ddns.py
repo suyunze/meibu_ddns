@@ -24,8 +24,9 @@ def read_ipv6():
     logging.info("读取上次记录的IPv6地址")
     if os.path.exists('ipv6.ini'):
         with open('ipv6.ini', 'r') as f:
-            logging.info(f"读取成功，最后一次记录的地址为: {f.read()}")
-            return f.read()
+            ipv6 = f.read()
+            logging.info(f"读取成功，最后一次记录的地址为: {ipv6}")
+            return ipv6
     else:
         logging.warning("不存在历史记录，写入空文件")
         write_ipv6('')
@@ -34,7 +35,7 @@ def read_ipv6():
 
 def submit_ipv6() -> bool:
     logging.info("开始提交IPv6地址变更")
-    resp = requests.get('http://v6.meibu.com/v6.asp?name=&pwd=')
+    resp = requests.get('http://v6.meibu.com/v6.asp?name=域名&pwd=密码')
     logging.info(f"请求成功，状态码:->{resp.status_code}<-,请求头:->{resp.headers}<-,内容:->{resp.text}<-")
     if resp.text == "ok":
         logging.info("更新成功")
