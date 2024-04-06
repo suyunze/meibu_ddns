@@ -55,7 +55,7 @@ def get_ipv6_address():
     ipv6_pattern = r"\b((?:[\da-fA-F]{0,4}:[\da-fA-F]{0,4}){2,7})(?:[\/\\%](\d{1,3}))?\b"
     if grep_output:
         ipv6 = re.findall(ipv6_pattern, grep_output)
-        logging.info(f"执行ssh命令成功,执行结果:{grep_output}")
+        logging.info(f"执行ssh命令成功,执行结果:{grep_output}".strip())
         if ipv6.__len__() == 0:
             logging.error(f"解析IPv6地址失败,解析结果:{ipv6}")
             return None
@@ -74,10 +74,10 @@ if __name__ == '__main__':
         cur_ip = get_ipv6_address()
         if cur_ip is not None:
             if last_ip == cur_ip:
-                logging.info(f"与上次地址相同,上次ip:{last_ip},当前ip:{cur_ip}.")
+                logging.info(f"与上次地址相同,上次ip:{last_ip},当前ip:{cur_ip}.\n")
                 ...
             else:
-                logging.info(f"与上次地址不相同,上次ip:{last_ip},当前ip:{cur_ip}")
+                logging.info(f"与上次地址不相同,上次ip:{last_ip},当前ip:{cur_ip}\n")
                 write_ipv6(cur_ip)
                 submit_ipv6()
                 logging.info(f"{datetime.datetime.now()}完成更新")
